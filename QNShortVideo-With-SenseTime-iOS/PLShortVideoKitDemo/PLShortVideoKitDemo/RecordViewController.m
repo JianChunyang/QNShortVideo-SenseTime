@@ -114,7 +114,8 @@ PLScreenRecorderManagerDelegate,
 STCommonObjectContainerViewDelegate,
 STViewButtonDelegate,
 STBeautySliderDelegate,
-STEffectsMessageDelegate
+STEffectsMessageDelegate,
+STEffectsAudioPlayerDelegate
 >
 
 // senseTime 相关属性
@@ -2031,6 +2032,12 @@ STEffectsMessageDelegate
 }
 
 - (void)setupSenseTime {
+    self.audioPlayer = [[STEffectsAudioPlayer alloc] init];
+    self.audioPlayer.delegate = self;
+    
+    messageManager = [[STEffectsMessageManager alloc] init];
+    messageManager.delegate = self;
+    
     self.motionManager = [[CMMotionManager alloc] init];
     self.motionManager.accelerometerUpdateInterval = 0.5;
     self.motionManager.deviceMotionUpdateInterval = 1 / 25.0;
