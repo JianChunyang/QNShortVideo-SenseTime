@@ -22,107 +22,82 @@
 
 @implementation STCustomMemoryCache
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
-
         _lock = dispatch_semaphore_create(1);
         _dicCache = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
-
-
-- (NSArray<id> *)allKeys
-{
+- (NSArray<id> *)allKeys {
     STSemaphoreLock();
-    
     NSArray *arrAllKeys = [_dicCache allKeys];
     
     STSemaphoreUnlock();
-    
     return arrAllKeys;
 }
 
-- (NSArray<id> *)allValues
-{
+- (NSArray<id> *)allValues {
     STSemaphoreLock();
-    
     NSArray *arrAllValues = [_dicCache allValues];
     
     STSemaphoreUnlock();
-    
     return arrAllValues;
 }
 
-- (void)setObject:(id)anObject forKey:(id)aKey;
-{
+- (void)setObject:(id)anObject forKey:(id)aKey {
     if (aKey == nil || anObject == nil) {
-        
         return;
     }
     
     STSemaphoreLock();
-    
     [_dicCache setObject:anObject forKey:aKey];
     
     STSemaphoreUnlock();
 }
-- (id)objectForKey:(id)aKey
-{
+
+- (id)objectForKey:(id)aKey {
     if (aKey == nil) {
-        
         return nil;
     }
     
     STSemaphoreLock();
-    
     id obj = [_dicCache objectForKey:aKey];
     
     STSemaphoreUnlock();
-    
     return obj;
 }
 
-- (void)removeObjectForKey:(id)aKey
-{
+- (void)removeObjectForKey:(id)aKey {
     if (aKey == nil) {
-        
         return;
     }
     
     STSemaphoreLock();
-    
     [_dicCache removeObjectForKey:aKey];
     
     STSemaphoreUnlock();
 }
 
-- (void)removeAllObjects
-{
+- (void)removeAllObjects {
     STSemaphoreLock();
-    
     [_dicCache removeAllObjects];
     
     STSemaphoreUnlock();
 }
 
-- (void)enumerateKeysAndObjectsUsingBlock:(void (^)(id key, id obj, BOOL *stop))block
-{
+- (void)enumerateKeysAndObjectsUsingBlock:(void (^)(id key, id obj, BOOL *stop))block {
     STSemaphoreLock();
-    
     [_dicCache enumerateKeysAndObjectsUsingBlock:block];
     
     STSemaphoreUnlock();
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     _lock = nil;
     self.dicCache = nil;
 }
-
 
 @end

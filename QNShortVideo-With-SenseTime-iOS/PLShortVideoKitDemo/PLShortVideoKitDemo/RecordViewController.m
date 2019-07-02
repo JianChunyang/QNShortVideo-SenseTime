@@ -32,33 +32,33 @@
 #import "st_mobile_animal.h"
 #import "st_mobile_avatar.h"
 
+#import "SenseArSourceService.h"        // AR
+
 // senseTime 系统文件导入
 #import <CommonCrypto/CommonDigest.h>   //授权 getSHA1StringWithData 使用到
 #import <OpenGLES/ES2/glext.h>
 #import <CoreMotion/CoreMotion.h>
-#import <AVFoundation/AVFoundation.h>
 
 // senseTime UI 界面类导入
-#import "STViewButton.h"
-#import "STTriggerView.h"
-#import "STScrollTitleView.h"
-#import "STCommonObjectContainerView.h"
-#import "STCollectionView.h"
-#import "STParamUtil.h"
-#import "STEffectsAudioPlayer.h"
-#import "STFilterView.h"
-#import "STBeautySlider.h"
-
-#import "SenseArSourceService.h"
-#import "STCustomMemoryCache.h"
 #import "EffectsCollectionView.h"
 #import "EffectsCollectionViewCell.h"
+#import "STBeautySlider.h"
+#import "STCollectionView.h"
+#import "STCommonObjectContainerView.h"
+#import "STCustomMemoryCache.h"
+#import "STEffectsAudioPlayer.h"
+#import "STFilterView.h"
+#import "STParamUtil.h"
+#import "STScrollTitleView.h"
+#import "STTriggerView.h"
+#import "STViewButton.h"
 
 #define TIMELOG(key) double key = CFAbsoluteTimeGetCurrent();
 #define TIMEPRINT(key , dsc) printf("%s\t%.1f ms\n" , dsc , (CFAbsoluteTimeGetCurrent() - key) * 1000);
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define STEFFECT_HEIGHT 210
 
 #define POINT_KEY @"POINT_KEY"
 #define POINTS_KEY @"POINTS_KEY"
@@ -87,7 +87,6 @@ typedef NS_ENUM(NSInteger, STViewTag) {
 
 STEffectsMessageManager *messageManager = nil;
 /***************************** senseTime 相关导入 end ******************************/
-
 
 #define AlertViewShow(msg) [[[UIAlertView alloc] initWithTitle:@"warning" message:[NSString stringWithFormat:@"%@", msg] delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
 
@@ -1293,7 +1292,6 @@ STEffectsMessageDelegate
             }
 
             if (self.isCommonObjectViewSetted) {
-
                 TIMELOG(keyTracker);
                 iRet = st_mobile_object_tracker_track(_hTracker, pBGRAImageIn, ST_PIX_FMT_BGRA8888, iWidth, iHeight, iBytesPerRow, &_rect, &_result_score);
                 NSLog(@"tracking, result_score: %f,rect.left: %d, rect.top: %d, rect.right: %d, rect.bottom: %d", _result_score, _rect.left, _rect.top, _rect.right, _rect.bottom);
@@ -2858,7 +2856,7 @@ void unload_sound(void *handle, const char *sound_name) {
 
 - (UIView *)specialEffectsContainerView {
     if (!_specialEffectsContainerView) {
-        _specialEffectsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 230)];
+        _specialEffectsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, STEFFECT_HEIGHT)];
         _specialEffectsContainerView.backgroundColor = [UIColor clearColor];
         
         UIView *noneStickerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 57, 40)];
@@ -2900,7 +2898,7 @@ void unload_sound(void *handle, const char *sound_name) {
 
 - (UIView *)beautyContainerView {
     if (!_beautyContainerView) {
-        _beautyContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 260)];
+        _beautyContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, STEFFECT_HEIGHT)];
         _beautyContainerView.backgroundColor = [UIColor clearColor];
         [_beautyContainerView addSubview:self.beautyScrollTitleViewNew];
         
@@ -3039,7 +3037,7 @@ void unload_sound(void *handle, const char *sound_name) {
 
 - (UIView *)filterStrengthView {
     if (!_filterStrengthView) {
-        _filterStrengthView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 260 - 35.5, SCREEN_WIDTH, 35.5)];
+        _filterStrengthView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - STEFFECT_HEIGHT - 35.5, SCREEN_WIDTH, 35.5)];
         _filterStrengthView.backgroundColor = [UIColor clearColor];
         _filterStrengthView.hidden = YES;
         
@@ -3070,7 +3068,7 @@ void unload_sound(void *handle, const char *sound_name) {
 
 - (UISlider *)beautySlider {
     if (!_beautySlider) {
-        _beautySlider = [[STBeautySlider alloc] initWithFrame:CGRectMake(40, SCREEN_HEIGHT - 260 - 40, SCREEN_WIDTH - 90, 40)];
+        _beautySlider = [[STBeautySlider alloc] initWithFrame:CGRectMake(40, SCREEN_HEIGHT - STEFFECT_HEIGHT - 40, SCREEN_WIDTH - 90, 40)];
         _beautySlider.thumbTintColor = UIColorFromRGB(0x9e4fcb);
         _beautySlider.minimumTrackTintColor = UIColorFromRGB(0x9e4fcb);
         _beautySlider.maximumTrackTintColor = [UIColor whiteColor];
@@ -3095,9 +3093,9 @@ void unload_sound(void *handle, const char *sound_name) {
     
     STNewBeautyCollectionViewModel *model = self.beautyCollectionView.selectedModel;
     
-    //    model.beautyValue = value * 100;
+//    model.beautyValue = value * 100;
     
-    //    [self.beautyCollectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:model.modelIndex inSection:0]]];
+//    [self.beautyCollectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:model.modelIndex inSection:0]]];
     
     switch (model.beautyType) {
             
@@ -4300,12 +4298,12 @@ void freeHumanAction(st_mobile_human_action_t *src) {
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self.view];
     if (self.specialEffectsContainerViewIsShow) {
-        if (!CGRectContainsPoint(CGRectMake(0, SCREEN_HEIGHT - 230, SCREEN_WIDTH, 230), point)) {
+        if (!CGRectContainsPoint(CGRectMake(0, SCREEN_HEIGHT - STEFFECT_HEIGHT, SCREEN_WIDTH, STEFFECT_HEIGHT), point)) {
             [self hideContainerView];
         }
     }
     if (self.beautyContainerViewIsShow) {
-        if (!CGRectContainsPoint(CGRectMake(0, SCREEN_HEIGHT - 230, SCREEN_WIDTH, 230), point)) {
+        if (!CGRectContainsPoint(CGRectMake(0, SCREEN_HEIGHT - STEFFECT_HEIGHT, SCREEN_WIDTH, STEFFECT_HEIGHT), point)) {
             [self hideBeautyContainerView];
         }
     }
@@ -4371,7 +4369,7 @@ void freeHumanAction(st_mobile_human_action_t *src) {
     self.beautyBtn.hidden = YES;
     
     [UIView animateWithDuration:0.05 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.specialEffectsContainerView.frame = CGRectMake(0, SCREEN_HEIGHT - 230, SCREEN_WIDTH, 180);
+        self.specialEffectsContainerView.frame = CGRectMake(0, SCREEN_HEIGHT - STEFFECT_HEIGHT, SCREEN_WIDTH, 180);
     } completion:^(BOOL finished) {
         self.specialEffectsContainerViewIsShow = YES;
     }];
@@ -4408,7 +4406,7 @@ void freeHumanAction(st_mobile_human_action_t *src) {
     self.filterView.center = CGPointMake(SCREEN_WIDTH * 3 / 2, self.filterView.center.y);
     
     [UIView animateWithDuration:0.05 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.beautyContainerView.frame = CGRectMake(0, SCREEN_HEIGHT - 260, SCREEN_WIDTH, 260);
+        self.beautyContainerView.frame = CGRectMake(0, SCREEN_HEIGHT - STEFFECT_HEIGHT, SCREEN_WIDTH, STEFFECT_HEIGHT);
     } completion:^(BOOL finished) {
         self.beautyContainerViewIsShow = YES;
     }];

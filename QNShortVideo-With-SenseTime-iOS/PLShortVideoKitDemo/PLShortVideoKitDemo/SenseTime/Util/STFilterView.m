@@ -41,7 +41,6 @@
 @implementation STFilterView
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
@@ -51,7 +50,6 @@
 }
 
 - (void)setupViews {
-    
     STButton *backBtn = [[STButton alloc] initWithFrame:CGRectMake(12, 80, 7, 11)];
     backBtn.touchEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -33);
     [backBtn setImage:[UIImage imageNamed:@"filter_back_btn"] forState:UIControlStateNormal];

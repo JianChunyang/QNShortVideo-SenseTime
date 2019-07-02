@@ -27,72 +27,48 @@
 }
 
 - (void)setTapBlock:(STTapBlock)tapBlock {
-    
     _tapBlock = tapBlock;
     
     if (_tapBlock) {
-        
         self.userInteractionEnabled = YES;
-        
         self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
-        
         [self addGestureRecognizer:self.tapGesture];
-        
         [self.longPressGesture requireGestureRecognizerToFail:self.tapGesture];
     }
 }
 
 - (void)setLongPressGesture {
-    
     self.userInteractionEnabled = YES;
-    
     _longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPress:)];
-
     [self addGestureRecognizer:_longPressGesture];
 }
 
 - (void)onTap:(UITapGestureRecognizer *)recognizer {
-    
     _tapBlock();
-
 }
 
 - (void)onLongPress:(UILongPressGestureRecognizer *)recognizer {
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        
         if ([self.delegate respondsToSelector:@selector(btnLongPressBegin)]) {
             [self.delegate btnLongPressBegin];
         }
-        
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        
         if ([self.delegate respondsToSelector:@selector(btnLongPressEnd)]) {
             [self.delegate btnLongPressEnd];
         }
-        
     } else if (recognizer.state == UIGestureRecognizerStateFailed) {
-        
         if ([self.delegate respondsToSelector:@selector(btnLongPressFailed)]) {
             [self.delegate btnLongPressFailed];
         }
-        
     } else if (recognizer.state == UIGestureRecognizerStateCancelled) {
-        
         //todo
-        
     } else if (recognizer.state == UIGestureRecognizerStateRecognized) {
-        
         //todo
-        
     } else if (recognizer.state == UIGestureRecognizerStateChanged) {
-        
         //todo
-        
     } else if (recognizer.state == UIGestureRecognizerStatePossible) {
-        
         //todo
-        
     }
 }
 

@@ -19,19 +19,19 @@ typedef enum : NSUInteger {
 
 @interface EffectsCollectionViewCellModel : NSObject
 
-@property (nonatomic , assign) ModelState state;
-@property (nonatomic , assign) int indexOfItem;
-@property (nonatomic , assign) STEffectsType iEffetsType;
-@property (nonatomic , strong) UIImage *imageThumb;
+@property (nonatomic, assign) ModelState state;
+@property (nonatomic, assign) int indexOfItem;
+@property (nonatomic, assign) STEffectsType iEffetsType;
+@property (nonatomic, strong) UIImage *imageThumb;
 
-@property (nonatomic , strong) SenseArMaterial *material;
-@property (nonatomic , copy) NSString *strMaterialPath;
+@property (nonatomic, strong) SenseArMaterial *material;
+@property (nonatomic, copy) NSString *strMaterialPath;
 
 @end
 
 @interface EffectsCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic , strong) EffectsCollectionViewCellModel *model;
+@property (nonatomic, strong) EffectsCollectionViewCellModel *model;
 
 @property (weak, nonatomic) IBOutlet UIImageView *thumbView;
 @property (weak, nonatomic) IBOutlet UIImageView *loadingView;

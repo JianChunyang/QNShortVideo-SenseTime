@@ -22,7 +22,6 @@
 - (void)drawRect:(CGRect)rect {
     
 //    [self drawPoints];
-    
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetAllowsAntialiasing(context, true);
     CGContextSetShouldAntialias(context, true);
@@ -31,16 +30,13 @@
     [[UIColor greenColor] set];
     
     if (self.faceArray.count > 0) {
-        
         for (NSDictionary *dic in self.faceArray) {
-            
             if ([dic objectForKey:POINT_KEY]) {
                 CGPoint point = [[dic objectForKey:POINT_KEY] CGPointValue];
                 CGContextFillRect(context, CGRectMake(point.x - 1, point.y - 1, 2.0, 2.0));
             }
         }
     }
-    
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -53,18 +49,15 @@
 }
 
 - (void)drawPoints {
-    
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetAllowsAntialiasing(context, true);
     CGContextSetShouldAntialias(context, true);
     
     if (!self.needClear) {
-        
         CGContextSetLineWidth(context, 2);
         UIColor *greenColor = [UIColor greenColor];
         
         for (NSDictionary *dicPerson in self.arrPersons) {
-            
             NSArray *arrPoints = [dicPerson objectForKey:POINTS_KEY];
             if (arrPoints) {
                 for (NSDictionary *dicPoint in arrPoints) {
@@ -90,7 +83,6 @@
     _currentCommonObjectView.delegate = self;
 }
 
-
 #pragma mark - delegate
 
 - (void)commonObjectViewBeginMove:(int)commonObjectViewID {
@@ -106,6 +98,7 @@
 }
 
 #pragma mark - getter and setter
+
 - (void)setCurrentCommonObjectView:(STCommonObjectView *)currentCommonObjectView {
     _currentCommonObjectView = currentCommonObjectView;
     [self bringSubviewToFront:currentCommonObjectView];

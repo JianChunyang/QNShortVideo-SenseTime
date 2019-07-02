@@ -14,7 +14,7 @@
 @property (nonatomic , weak) id<STEffectsAudioPlayerDelegate> delegate;
 
 - (BOOL)loadSound:(NSData *)soundData name:(NSString *)strName;
-- (BOOL)playSound:(NSString *)strName loop:(int)iLoop; /*  */
+- (BOOL)playSound:(NSString *)strName loop:(int)iLoop;
 - (void)stopSound:(NSString *)strName;
 - (void)unloadSound:(NSString *)strName;
 - (void)pauseSound:(NSString *)strName;

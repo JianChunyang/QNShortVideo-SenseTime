@@ -15,7 +15,6 @@
 @end
 
 
-
 @implementation STEffectsAudioPlayer
 
 - (void)dealloc {
@@ -31,15 +30,12 @@
 }
 
 - (BOOL)loadSound:(NSData *)soundData name:(NSString *)strName {
-    
     NSError *error = nil;
     
     AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithData:soundData fileTypeHint:AVFileTypeMPEGLayer3 error:&error];
     
     if (error || !audioPlayer) {
-        
         NSLog(@"STEffectsAudioPlayer loadSound failed : %@" , [error localizedDescription]);
-        
         return NO;
     }
     
@@ -51,9 +47,7 @@
     BOOL isReadyToPlay = [audioPlayer prepareToPlay];
     
     if (!isReadyToPlay) {
-        
         NSLog(@"STEffectsAudioPlayer is not ready to play.");
-        
         return NO;
     }
     
@@ -97,25 +91,18 @@
     [_players removeAllObjects];
 }
 
-#pragma - mark -
 #pragma - mark AVAudioPlayerDelegate
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    
     NSString *strName = (NSString *)[_players objectForKey:@(player.hash)];
     if (!strName) {
         return;
     }
     
-    if (self.delegate
-        &&
-        [self.delegate respondsToSelector:@selector(audioPlayerDidFinishPlaying:successfully:name:)])
-    {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(audioPlayerDidFinishPlaying:successfully:name:)]) {
         [self.delegate audioPlayerDidFinishPlaying:self successfully:flag name:strName];
     }
-    
     NSLog(@"finish !!!! %d" , flag);
 }
-
 
 @end

@@ -81,8 +81,7 @@ float getThinLegValue(float value) {
 
 @implementation STParamUtil
 
-+ (float)getCpuUsage
-{
++ (float)getCpuUsage {
     kern_return_t kr;
     task_info_data_t tinfo;
     mach_msg_type_number_t task_info_count;
@@ -139,12 +138,9 @@ float getThinLegValue(float value) {
 }
 
 + (NSArray *)getFilterModelPathsByType:(STEffectsType)type {
-    
-    
     NSString *strPrefix;
     
     switch (type) {
-            
         case STEffectsTypeFilterPortrait:
             strPrefix = @"PortraitFilters";
             break;
@@ -166,23 +162,17 @@ float getThinLegValue(float value) {
     }
     
     NSFileManager *fileManger = [[NSFileManager alloc] init];
-    
     NSString *strBundlePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[strPrefix stringByAppendingString:@".bundle"]];
-    
     NSArray *arrFileNames = [fileManger contentsOfDirectoryAtPath:strBundlePath error:nil];
-    
     NSMutableArray *arrFilterPaths = [NSMutableArray array];
     
     for (NSString *strFileName in arrFileNames) {
-        
         if ([strFileName hasSuffix:@"model"] && [strFileName hasPrefix:@"filter_style"]) {
-            
             [arrFilterPaths addObject:[NSString pathWithComponents:@[strBundlePath , strFileName]]];
         }
     }
     
     NSString *strDocumentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    
     NSString *filterPortraitPath = [strDocumentsPath stringByAppendingPathComponent:@"PortraitFilters"];
     NSString *filterSceneryPath = [strDocumentsPath stringByAppendingPathComponent:@"SceneryFilters"];
     NSString *filterStillLifePath = [strDocumentsPath stringByAppendingPathComponent:@"StillLifeFilters"];
@@ -205,60 +195,43 @@ float getThinLegValue(float value) {
     }
     
     NSString *filterPath = [strDocumentsPath stringByAppendingPathComponent:strPrefix];
-    
     arrFileNames = [fileManger contentsOfDirectoryAtPath:filterPath error:nil];
     
     for (NSString *strFileName in arrFileNames) {
-        
         if ([strFileName hasSuffix:@"model"] && [strFileName hasPrefix:@"filter_style"]) {
-            
             [arrFilterPaths addObject:[NSString pathWithComponents:@[filterPath , strFileName]]];
         }
     }
-    
     return [arrFilterPaths copy];
-    
 }
 
 + (NSArray *)getTrackerPaths {
-    
     NSFileManager *fileManager = [[NSFileManager alloc] init];
-    
     NSString *strBundlePath = [[NSBundle mainBundle] resourcePath];
-    
     NSArray *arrFileNames = [fileManager contentsOfDirectoryAtPath:strBundlePath error:nil];
-    
     NSMutableArray *arrPaths = [NSMutableArray array];
     
     for (NSString *strFileName in arrFileNames) {
-        
         if ([strFileName hasPrefix:@"common_object"]) {
-            
             [arrPaths addObject:[NSString pathWithComponents:@[strBundlePath, strFileName]]];
         }
     }
     
     NSString *strDocumentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    
     arrFileNames = [fileManager contentsOfDirectoryAtPath:strDocumentsPath error:nil];
     
     for (NSString *strFileName in arrFileNames) {
-        
         if ([strFileName hasPrefix:@"common_object"]) {
-            
             [arrPaths addObject:[NSString pathWithComponents:@[strDocumentsPath, strFileName]]];
         }
     }
-    
     return [arrPaths copy];
 }
 
 + (NSArray *)getStickerPathsByType:(STEffectsType)type {
-    
     NSString *strPrefix;
     
     switch (type) {
-            
         case STEffectsTypeStickerNew:
             strPrefix = @"new_sticker";
             
@@ -305,23 +278,17 @@ float getThinLegValue(float value) {
     
     
     NSFileManager *fileManger = [[NSFileManager alloc] init];
-    
     NSString *strBundlePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[strPrefix stringByAppendingString:@".bundle"]];
-    
     NSArray *arrFileNames = [fileManger contentsOfDirectoryAtPath:strBundlePath error:nil];
-    
     NSMutableArray *arrZipPaths = [NSMutableArray array];
     
     for (NSString *strFileName in arrFileNames) {
-        
         if ([strFileName hasSuffix:@"zip"]) {
-            
             [arrZipPaths addObject:[NSString pathWithComponents:@[strBundlePath , strFileName]]];
         }
     }
     
     NSString *strDocumentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    
     NSString *stickerNewPath = [strDocumentsPath stringByAppendingPathComponent:@"new_sticker"];
     NSString *sticker2dPath = [strDocumentsPath stringByAppendingPathComponent:@"2d_sticker"];
     NSString *stickerAvatarPath = [strDocumentsPath stringByAppendingPathComponent:@"avatar_sticker"];
@@ -369,17 +336,13 @@ float getThinLegValue(float value) {
     }
     
     NSString *stickerPath = [strDocumentsPath stringByAppendingPathComponent:strPrefix];
-    
     arrFileNames = [fileManger contentsOfDirectoryAtPath:stickerPath error:nil];
     
     for (NSString *strFileName in arrFileNames) {
-        
         if ([strFileName hasSuffix:@"zip"]) {
-            
             [arrZipPaths addObject:[NSString pathWithComponents:@[stickerPath , strFileName]]];
         }
     }
-    
     return [arrZipPaths copy];
 }
 

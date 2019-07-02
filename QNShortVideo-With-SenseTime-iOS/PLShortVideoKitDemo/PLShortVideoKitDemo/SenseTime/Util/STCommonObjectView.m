@@ -36,7 +36,6 @@
 - (instancetype)initWithFrame:(CGRect)frame commonObjectViewID:(int)viewID image:(UIImage *)image {
     self = [super initWithFrame:frame];
     if (self) {
-        
         self.backgroundColor = [UIColor clearColor];
         
         _commonObjectViewID = viewID;
@@ -50,7 +49,6 @@
 }
 
 - (void)setupSubviews {
-
     _imageContentView = [[UIImageView alloc] initWithFrame:CGRectMake(COMMON_OBJECT_VIEW_MARGIN, COMMON_OBJECT_VIEW_MARGIN, self.frame.size.width - 2 * COMMON_OBJECT_VIEW_MARGIN, self.frame.size.height - 2 * COMMON_OBJECT_VIEW_MARGIN)];
     _imageContentView.backgroundColor = [UIColor clearColor];
     _imageContentView.layer.borderColor = [UIColor redColor].CGColor;
@@ -75,7 +73,6 @@
 }
 
 - (void)setupGestures {
-    
 //    self.userInteractionEnabled = YES;
 //    
 //    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
@@ -83,7 +80,6 @@
 //    
 //    UIRotationGestureRecognizer *rotateGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotate:)];
 //    [self addGestureRecognizer:rotateGesture];
-    
 }
 
 #pragma mark -
@@ -94,7 +90,6 @@
 
 - (void)setOnFirst:(BOOL)onFirst {
     _onFirst = onFirst;
-    
 //    self.deleteBtnView.hidden = !onFirst;
 //    self.sizeControlBtnView.hidden = !onFirst;
 

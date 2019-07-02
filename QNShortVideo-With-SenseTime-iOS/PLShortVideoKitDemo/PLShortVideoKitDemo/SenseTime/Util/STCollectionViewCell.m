@@ -47,7 +47,6 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        
         self.layer.borderWidth = 1;
         self.layer.borderColor = [UIColor whiteColor].CGColor;
         self.layer.cornerRadius = 7.0;

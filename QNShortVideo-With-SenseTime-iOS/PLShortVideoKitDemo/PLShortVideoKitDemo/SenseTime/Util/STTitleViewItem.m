@@ -23,7 +23,6 @@
 @implementation STTitleViewItem
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    
     self = [super initWithFrame:frame];
     if (self) {
         self.userInteractionEnabled = YES;
@@ -33,7 +32,6 @@
 }
 
 - (void)adjustSubviewFrame {
-    
     CGRect contentViewFrame = self.bounds;
     contentViewFrame.size.width = [self titleViewWidth];
     contentViewFrame.origin.x = (self.frame.size.width - contentViewFrame.size.width) / 2;
@@ -42,7 +40,6 @@
     [self addSubview:self.contentView];
     
     switch (self.titleViewStyle) {
-            
         case STTitleViewStyleOnlyImage:
             self.imageView.frame = self.contentView.bounds;
             [self.contentView addSubview:self.imageView];
@@ -66,7 +63,6 @@
     CGFloat width = 0.0f;
     
     switch (self.titleViewStyle) {
-            
         case STTitleViewStyleOnlyImage:
             width = _imageWidth;
             break;
@@ -85,7 +81,6 @@
     _normalImage = normalImage;
     _imageWidth = normalImage.size.width;
     _imageHeight = normalImage.size.height;
-    
     self.imageView.image = normalImage;
 }
 
@@ -148,9 +143,7 @@
 }
 
 - (UIView *)pointView {
-    
     if (!_pointView) {
-        
         _pointView = [[UIView alloc] init];
         _pointView.frame = CGRectMake(0, 0, 6, 6);
         _pointView.layer.cornerRadius = 3;

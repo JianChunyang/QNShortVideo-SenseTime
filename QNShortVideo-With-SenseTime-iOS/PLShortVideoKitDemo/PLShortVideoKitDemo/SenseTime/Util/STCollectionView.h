@@ -92,7 +92,6 @@ STNewBeautyCollectionViewModel *getModel(UIImage *normalImage, UIImage *highligh
 @interface STNewBeautyCollectionView : UICollectionView
 
 @property (nonatomic, strong) NSArray<STNewBeautyCollectionViewModel *> *models;
-
 @property (nonatomic, strong) STNewBeautyCollectionViewModel *selectedModel;
 
 - (instancetype)initWithFrame:(CGRect)frame

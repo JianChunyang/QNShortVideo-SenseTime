@@ -27,7 +27,7 @@
 
 - 七牛短视频 SDK 需要七牛授权方可使用，可通过 400-808-9176 转 2 号线联系七牛商务咨询，或者 [通过工单](https://support.qiniu.com/?ref=developer.qiniu.com) 联系七牛的技术支持。
 
-- 商汤特效 SDK 需要商汤授权方可使用，同样可以通过 400-808-9176 转 2 号线联系七牛商务咨询，或者 [通过工单](https://support.qiniu.com/?ref=developer.qiniu.com) 联系七牛的技术支持来获悉商汤特效的使用权限。
+- 商汤特效 SDK 需要商汤授权方可使用，同样可以通过 400-808-9176 转 2 号线联系七牛商务咨询，或者 [通过工单](https://support.qiniu.com/?ref=developer.qiniu.com) 联系七牛的技术支持，来获悉商汤特效的使用权限。
 
 # 4 反馈及意见
 

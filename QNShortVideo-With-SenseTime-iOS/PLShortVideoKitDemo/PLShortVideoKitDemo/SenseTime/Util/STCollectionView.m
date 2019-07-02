@@ -276,7 +276,6 @@
     
     self = [super initWithFrame:frame collectionViewLayout:flowLayout];
     if (self) {
-        
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
         self.bounces = NO;
@@ -295,24 +294,17 @@
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     STNewBeautyCollectionViewCell *cell = [self dequeueReusableCellWithReuseIdentifier:@"STNewBeautyCollectionViewCell" forIndexPath:indexPath];
-    
     STNewBeautyCollectionViewModel *model = self.models[indexPath.row];
-    
     cell.model = model;
     cell.highlight = model.selected;
-    
     cell.imageView.image = model.selected ? model.highlightedImage : model.normalImage;
     cell.nameLabel.text = model.title;
     cell.valueLabel.text = [NSString stringWithFormat:@"%d", model.beautyValue];
-    
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
     if (!_selectedModel) {
         STNewBeautyCollectionViewCell *cell = (STNewBeautyCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
         cell.highlight = YES;
@@ -325,15 +317,9 @@
         }
     }
     
-    
     if (_selectedModel && _selectedModel.modelType == self.models[indexPath.row].modelType) {
-        
-        
         if (_selectedModel.modelIndex != self.models[indexPath.row].modelIndex) {
-            
             _selectedModel.selected = NO;
-            
-            
             self.models[indexPath.row].selected = YES;
             
             
@@ -345,12 +331,8 @@
             _selectedModel = self.models[indexPath.row];
             
             self.block(self.models[indexPath.row]);
-            
-            
         }
-        
     } else {
-        
         STNewBeautyCollectionViewCell *cell1 = (STNewBeautyCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
         cell1.highlight = YES;
         
@@ -360,14 +342,11 @@
         _selectedModel = self.models[indexPath.row];
         
         self.block(self.models[indexPath.row]);
-        
     }
 }
-
 @end
 
 STNewBeautyCollectionViewModel* getModel(UIImage *normalImage, UIImage *highlightImage, NSString *title, int beautyValue, BOOL selected, int modelIndex, STEffectsType modelType, STBeautyType beautyType) {
-
     STNewBeautyCollectionViewModel *model = [[STNewBeautyCollectionViewModel alloc] init];
     model.normalImage = normalImage;
     model.highlightedImage = highlightImage;
@@ -377,6 +356,5 @@ STNewBeautyCollectionViewModel* getModel(UIImage *normalImage, UIImage *highligh
     model.modelIndex = modelIndex;
     model.modelType = modelType;
     model.beautyType = beautyType;
-
     return model;
 }

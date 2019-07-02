@@ -133,14 +133,12 @@ float getThinLegValue(float value);
  */
 + (float) getCpuUsage;
 
-
 /**
  获取通用物体素材路径
 
  @return 路径数组
  */
 + (NSArray *)getTrackerPaths;
-
 
 /**
  获取特定类型贴纸素材路径
@@ -149,7 +147,6 @@ float getThinLegValue(float value);
  @return 路径数组
  */
 + (NSArray *)getStickerPathsByType:(STEffectsType)type;
-
 
 /**
  获取特定类型滤镜路径

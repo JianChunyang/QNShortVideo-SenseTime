@@ -53,45 +53,31 @@
         dispatch_source_set_timer(_timer, dispatch_time(DISPATCH_TIME_NOW, 0), interval, 0);
         
         __weak typeof(self) weakSelf = self;
-        
         dispatch_source_set_event_handler(_timer, ^{
-            
             dispatch_async(dispatch_get_main_queue(), ^{
-                
                 if (!weakSelf.isHidden && (CFAbsoluteTimeGetCurrent() - weakSelf.dStartTime > 3.0)) {
                     weakSelf.hidden = YES;
                 }
             });
         });
-        
         dispatch_resume(_timer);
     }
     return self;
 }
 
 - (void)showTriggerViewWithContent:(NSString *)content image:(UIImage *)image {
-    
     dispatch_async(dispatch_get_main_queue(), ^{
-        
         _dStartTime = CFAbsoluteTimeGetCurrent();
-        
         [self.imageView setImage:image];
-        
         self.txtLabel.text = content;
-        
         self.hidden = NO;
     });
-    
 }
 
 - (void)showTriggerViewWithType:(STTriggerType) type {
-    
     dispatch_async(dispatch_get_main_queue(), ^{
-        
         _dStartTime = CFAbsoluteTimeGetCurrent();
-        
         switch (type) {
-                
             case STTriggerTypeNod:
                 [self.imageView setImage:[UIImage imageNamed:@"head_pitch"]];
                 self.txtLabel.text = @"请点点头～";
@@ -116,27 +102,22 @@
                 [self.imageView setImage:[UIImage imageNamed:@"hand_good"]];
                 self.txtLabel.text = @"请比个赞～";
                 break;
-                
             case STTriggerTypeHandPalm:
                 [self.imageView setImage:[UIImage imageNamed:@"hand_palm"]];
                 self.txtLabel.text = @"请伸手掌～";
                 break;
-                
             case STTriggerTypeHandLove:
                 [self.imageView setImage:[UIImage imageNamed:@"hand_love"]];
                 self.txtLabel.text = @"请双手比心～";
                 break;
-                
             case STTriggerTypeHandHoldUp:
                 [self.imageView setImage:[UIImage imageNamed:@"hand_holdup"]];
                 self.txtLabel.text = @"请托个手～";
                 break;
-                
             case STTriggerTypeHandCongratulate:
                 [self.imageView setImage:[UIImage imageNamed:@"hand_congratulate"]];
                 self.txtLabel.text = @"请抱个拳～";
                 break;
-                
             case STTriggerTypeHandFingerHeart:
                 [self.imageView setImage:[UIImage imageNamed:@"hand_finger_heart"]];
                 self.txtLabel.text = @"请单手比心～";
@@ -145,57 +126,43 @@
                 [self.imageView setImage:[UIImage imageNamed:@"two_index_finger"]];
                 self.txtLabel.text = @"请如图所示伸出手指～";
                 break;
-                
             case STTriggerTypeHandPistol:
                 [self.imageView setImage:[UIImage imageNamed:@"hand_gun"]];
                 self.txtLabel.text = @"请比个手枪～";
                 break;
-                
             case STTriggerTypeHandScissor:
                 [self.imageView setImage:[UIImage imageNamed:@"hand_victory"]];
                 self.txtLabel.text = @"请比个剪刀手～";
                 break;
-                
             case STTriggerTypeHandOK:
                 [self.imageView setImage:[UIImage imageNamed:@"hand_ok"]];
                 self.txtLabel.text = @"请亮出OK手势～";
                 break;
-                
             case STTriggerTypeHandFingerIndex:
                 [self.imageView setImage:[UIImage imageNamed:@"hand_finger"]];
                 self.txtLabel.text = @"请伸出食指～";
                 break;
-                
             case STTriggerTypeHand666:
                 self.imageView.image = [UIImage imageNamed:@""];
                 self.txtLabel.text = @"请亮出666手势～";
                 break;
-                
             case STTriggerTypeHandBless:
                 self.imageView.image = [UIImage imageNamed:@""];
                 self.txtLabel.text = @"请双手合十～";
-                
                 break;
-                
-                
             case STTriggerTypeHandILoveYou:
                 self.imageView.image = [UIImage imageNamed:@""];
                 self.txtLabel.text = @"请亮出我爱你手势～";
-                
                 break;
-                
             case STTriggerTypeHandFist:
                 self.imageView.image = [UIImage imageNamed:@""];
                 self.txtLabel.text = @"请举起拳头～";
                 break;
-                
             default:
                 break;
         }
-        
         self.hidden = NO;
     });
-    
 }
 
 @end

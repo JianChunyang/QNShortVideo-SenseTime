@@ -31,7 +31,6 @@
 @implementation STScrollTitleView
 
 - (instancetype)initWithFrame:(CGRect)frame normalImages:(NSArray *)normalImages selectedImages:(NSArray *)selectedImages effectsType:(NSArray *)effectsType titleOnClick:(STTitleOnClickBlock)onClickBlock {
-    
     return [self initWithFrame:frame normalImages:normalImages selectedImages:selectedImages titles:nil effectsType:effectsType titleOnClick:onClickBlock];
 }
 
@@ -43,7 +42,6 @@
 - (instancetype)initWithFrame:(CGRect)frame normalImages:(NSArray *)normalImages selectedImages:(NSArray *)selectedImages titles:(NSArray *)titles effectsType:(NSArray *)effectsType titleOnClick:(STTitleOnClickBlock)onClickBlock {
     self = [super initWithFrame:frame];
     if (self) {
-        
         _arrNormalImages = normalImages;
         _arrSelectedImages = selectedImages;
         _arrTitles = titles;
@@ -59,7 +57,6 @@
         [self addSubview:self.scrollView];
         [self addSubview:self.pointView];
         
-        
         [self setupTitleViews];
         [self layoutTitleViews];
     }
@@ -67,18 +64,14 @@
 }
 
 - (void)setupTitleViews {
-    
     [self.titleViews removeAllObjects];
     [self.titleWidths removeAllObjects];
     
     if (_arrTitles) {
-        
         if (_arrTitles.count == 0) {
             return;
         }
-        
         NSInteger index = 0;
-        
         for (NSString *title in _arrTitles) {
             STTitleViewItem *titleView = [[STTitleViewItem alloc] initWithFrame:CGRectZero];
             titleView.tag = index;
@@ -96,23 +89,17 @@
             [titleView addGestureRecognizer:tapGes];
             
             CGFloat titleViewWidth = [titleView titleViewWidth];
-            
             [self.titleWidths addObject:@(titleViewWidth)];
             [self.titleViews addObject:titleView];
             [self.scrollView addSubview:titleView];
             ++index;
         }
-        
     } else {
-        
         if (_arrNormalImages.count == 0) {
             return;
         }
         NSInteger index = 0;
-        
-        
         for (UIImage *image in _arrNormalImages) {
-            
             STTitleViewItem *titleView = [[STTitleViewItem alloc] initWithFrame:CGRectZero];
             titleView.tag = index;
             titleView.effectsType = _arrEffectsType[index].integerValue;
@@ -125,11 +112,9 @@
             [titleView addGestureRecognizer:tapGes];
             
             CGFloat titleViewWidth = [titleView titleViewWidth];
-            
             [self.titleWidths addObject:@(titleViewWidth)];
             [self.titleViews addObject:titleView];
             [self.scrollView addSubview:titleView];
-            
             ++index;
         }
     }
@@ -137,13 +122,11 @@
 }
 
 - (void)layoutTitleViews {
-    
     if (self.titleViews.count == 0) {
         return;
     }
     
     self.scrollView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    
     
     CGFloat titleX = 0.0;
     CGFloat titleY = 0.0;
@@ -161,9 +144,7 @@
 //    addedMargin = allTitlesWidth < self.scrollView.bounds.size.width ? (self.scrollView.bounds.size.width - allTitlesWidth) / self.titleWidths.count : 0;
     
     for (STTitleViewItem *titleView in self.titleViews) {
-        
         titleW = [self.titleWidths[index] floatValue];
-        
         if (index == 0) {
             titleX = lastLabelMaxX / 2;
         } else {
@@ -171,23 +152,18 @@
         }
         
         lastLabelMaxX = titleW + titleX + TITLE_MARGIN;
-        
         titleView.frame = CGRectMake(titleX, titleY, titleW, titleH);
-        
         [titleView adjustSubviewFrame];
-        
         ++index;
     }
     
     STTitleViewItem *currentTitleView = (STTitleViewItem *)self.titleViews[_currentIndex];
     if (currentTitleView) {
         currentTitleView.selected = YES;
-        
         if (self.onClickBlock) {
             self.onClickBlock(currentTitleView, currentTitleView.tag, currentTitleView.effectsType);
         }
     }
-    
     
     STTitleViewItem *lastTitleView = (STTitleViewItem *)self.titleViews.lastObject;
     if (lastTitleView) {
@@ -196,15 +172,12 @@
 }
 
 - (void)titleViewOnClick:(UITapGestureRecognizer *)tapGes {
-    
     STTitleViewItem *currentView = (STTitleViewItem *)tapGes.view;
-    
     if (!currentView) {
         return;
     }
     
     _currentIndex = currentView.tag;
-    
     [self adjustUIWhenTitleViewTaped:YES animated:YES];
 }
 
@@ -217,30 +190,22 @@
     STTitleViewItem *currentTitleView = (STTitleViewItem *)self.titleViews[_currentIndex];
     
     CGFloat animatedTime = animated ? 0.30 : 0.0;
-    
     __weak __typeof(self) weakSelf = self;
     
     [UIView animateWithDuration:animatedTime animations:^{
-            
         oldTitleView.selected = NO;
         currentTitleView.selected = YES;
-        
     } completion:^(BOOL finished) {
-        
         [weakSelf adjustTitleOffsetToCurrentIndex:_currentIndex];
-        
     }];
     
     _oldIndex = _currentIndex;
-    
     if (self.onClickBlock) {
         self.onClickBlock(currentTitleView, _currentIndex, currentTitleView.effectsType);
     }
 }
 
-
 - (void)reloadTitlesWithNewTitles:(NSArray *)titles effectsType:(NSArray *)effectsType {
-    
     [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     _currentIndex = 0;
@@ -265,7 +230,6 @@
 }
 
 - (void)reloadTitlesWithNewNormalImages:(NSArray *)normalImages selectedImages:(NSArray *)selectedImages effectsType:(NSArray *)effectsType {
-    
     [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     _currentIndex = 0;
@@ -309,9 +273,7 @@
     }
     
     if (self.scrollView.contentSize.width != self.scrollView.bounds.size.width + 20) {
-        
         STTitleViewItem *currentTitleView = (STTitleViewItem *)_titleViews[currentIndex];
-        
         CGFloat offsetX = currentTitleView.center.x - _currentWidth * 0.5;
         
         if (offsetX < 0) {
@@ -327,16 +289,12 @@
         if (offsetX > maxOffsetX) {
             offsetX = maxOffsetX;
         }
-        
         [self.scrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
-
     }
 }
 
 - (void)setSelectedIndex:(NSInteger)index animated:(BOOL)animated {
-    
     _currentIndex = index;
-    
     [self adjustUIWhenTitleViewTaped:NO animated:YES];
     
 }
