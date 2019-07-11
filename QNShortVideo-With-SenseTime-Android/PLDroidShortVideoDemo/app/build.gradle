@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "com.qiniu.shortvideo.sensetime"
+        minSdkVersion 18
+        targetSdkVersion 25
+        versionCode 25
+        versionName "2.1.0"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.qiniu:qiniu-android-sdk:7.3.11'
+    implementation files('libs/pldroid-shortvideo-2.1.0.jar')
+    implementation files('libs/pldroid-player-2.1.5.jar')
+    implementation files('libs/EasyAR.jar')
+    implementation files('libs/EasyAR3D.jar')
+    implementation (name:'SenseArSourceManager-release',ext:'aar')
+
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
+    implementation 'com.android.support:recyclerview-v7:25.3.1'
+    implementation 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.android.support:design:25.3.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout-solver:1.0.2'
+
+    implementation project(':STMobileJNI')
+
+    implementation files('libs/universal-image-loader-1.9.4.jar')
+    implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.6'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+}
