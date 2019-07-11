@@ -51,10 +51,10 @@ public class TextureRotationUtil {
 	};
 
     public static final float TEXTURE_FLIP[] = {
-            0.0f, 0.0f,
-            1.0f, 0.0f,
             0.0f, 1.0f,
             1.0f, 1.0f,
+            0.0f, 0.0f,
+            1.0f, 0.0f,
     };
 
     private TextureRotationUtil() {}
